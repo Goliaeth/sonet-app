@@ -1,0 +1,23 @@
+.sidebar {
+  grid-area: sidebar;
+  background-color: #918E9F;
+}
+/* .sidebar a {
+  outline: none;
+  text-decoration: none;
+  padding: 2px 1px 0;
+  font-size: x-large;
+}
+
+.sidebar a:link {
+  color: #DFC64F;
+}
+
+.sidebar a:hover {
+  border-bottom: 1px solid;
+  color: #FFE6C1;
+  cursor: pointer;
+} */
+.link {
+  color: #DFC64F;
+}

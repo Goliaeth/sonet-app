@@ -9,36 +9,3 @@
   grid-template-columns: 2fr 10fr;
   grid-gap: 10px;
 }
-.header {
-  grid-area: header;
-  background-color: #918E9F;
-}
-.header img {
-  height: 60px;
-}
-.sidebar {
-  grid-area: sidebar;
-  background-color: #918E9F;
-}
-.content {
-  grid-area: content;
-  background-color: #F2F4FF;
-}
-
-a {
-  outline: none;
-  text-decoration: none;
-  padding: 2px 1px 0;
-  font-size: x-large;
-}
-
-a:link {
-  color: #DFC64F;
-}
-
-a:hover {
-  border-bottom: 1px solid;
-  color: #FFE6C1;
-  cursor: pointer;
-}
-
