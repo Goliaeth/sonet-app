@@ -6,14 +6,14 @@ const Sidebar = () => {
       <div className={classes.link}>
         <a>Profile</a>
       </div>
-      <div className="sidebarLink">
-        <a href="#s">Messages</a>
+      <div className={classes.link}>
+        <a>Messages</a>
       </div>
-      <div className="sidebarLink">
-        <a href="#s">News</a>
+      <div className={classes.link}>
+        <a>News</a>
       </div>
-      <div className="sidebarLink">
-        <a href="#s">Settings</a>
+      <div className={classes.link}>
+        <a>Settings</a>
       </div>
     </nav>
   );
