@@ -1,6 +1,6 @@
-.sidebar {
+.panel {
   grid-area: sidebar;
-  background-color: #918E9F;
+  background-color: #918e9f;
 }
 /* .sidebar a {
   outline: none;
@@ -19,5 +19,5 @@
   cursor: pointer;
 } */
 .link {
-  color: #DFC64F;
+  color: #dfc64f;
 }

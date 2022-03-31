@@ -1,7 +1,7 @@
-.header {
+.panel {
   grid-area: header;
-  background-color: #918E9F;
+  background-color: #918e9f;
 }
-.header img {
+.panel img {
   height: 60px;
 }

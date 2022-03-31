@@ -1,8 +1,8 @@
-import classes from './Sidebar.module.css'
+import classes from "./Sidebar.module.css";
 
 const Sidebar = () => {
   return (
-    <nav className={classes.sidebar}>
+    <nav className={classes.panel}>
       <div className={classes.link}>
         <a>Profile</a>
       </div>
