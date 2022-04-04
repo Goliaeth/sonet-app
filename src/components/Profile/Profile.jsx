@@ -5,7 +5,6 @@ import classes from "./Profile.module.css";
 const Profile = () => {
   return (
     <div>
-      <img className={classes.panorama} src="panorama.jpg" alt="panorama" />
       <ProfileInfo />
       <MyPosts />
     </div>
