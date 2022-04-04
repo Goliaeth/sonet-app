@@ -1,23 +1,24 @@
 .panel {
   grid-area: sidebar;
   background-color: #918e9f;
+  padding: 20px;
 }
-/* .sidebar a {
+.item a {
   outline: none;
   text-decoration: none;
   padding: 2px 1px 0;
   font-size: x-large;
 }
 
-.sidebar a:link {
-  color: #DFC64F;
+.item a:link {
+  color: #dfc64f;
 }
 
-.sidebar a:hover {
-  border-bottom: 1px solid;
-  color: #FFE6C1;
+.item a:hover {
+  color: #ffe6c1;
   cursor: pointer;
-} */
-.link {
-  color: #dfc64f;
+}
+
+.item a.active {
+  color: #ffe6c1;
 }

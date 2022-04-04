@@ -1,4 +1,6 @@
 .panorama {
-  height: 200px;
+  height: 120px;
   width: 100%;
+  box-shadow: 3px 3px 6px 4px #888;
+  opacity: 0.8;
 }
