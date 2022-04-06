@@ -1,7 +1,9 @@
+const ADD_POST = 'ADD_POST'
+const SEND_MESSAGE = 'SEND_MESSAGE'
+const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT'
+const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE_NEW_MESSAGE_TEXT'
+
 const store = {
-  _callSubscriber() {
-    console.log('no subscribers (observers)');
-  }, 
   _state: {
     profilePage: {
       posts: [
@@ -64,6 +66,7 @@ const store = {
           text: "Lorem ipsum dolor sit amet, consectetur adipisicing.",
         },
       ],
+      newMessageText: "enter message",
     },
     sidebar: {
       friends: [
@@ -85,28 +88,66 @@ const store = {
       ],
     },
   },
-  addPost() {
-    const newPost = {
-      id: 5,
-      message: this._state.profilePage.newPostText,
-      likesCount: 0,
-    };
-    this._state.profilePage.posts.push(newPost);
-    this._state.profilePage.newPostText = '';
-    this._callSubscriber(this._state);    
+  _callSubscriber() {
+    console.log("no subscribers (observers)");
   },
-  updateNewPostText(newText) {
-    this._state.profilePage.newPostText = newText;
-    this._callSubscriber(this._state);
-  },
+
   getState() {
-    
-    return this._state
+    return this._state;
   },
   subscribe(observer) {
-    this._callSubscriber = observer
-  }
+    this._callSubscriber = observer;
+  },
+
+  dispatch(action) {
+    switch (action.type) {
+      case ADD_POST:
+        const newPost = {
+          id: 5,
+          message: this._state.profilePage.newPostText,
+          likesCount: 0,
+        };
+        this._state.profilePage.posts.push(newPost);
+        this._state.profilePage.newPostText = "";
+        this._callSubscriber(this._state);
+        break;
+
+      case SEND_MESSAGE:
+        const newMessage = {
+          id: 4,
+          text: this._state.dialogsPage.newMessageText,
+        };
+        this._state.dialogsPage.messages.push(newMessage);
+        this._state.dialogsPage.newMessageText = "";
+        this._callSubscriber(this._state);
+        break;
+
+      case UPDATE_NEW_POST_TEXT:
+        this._state.profilePage.newPostText = action.newText;
+        this._callSubscriber(this._state);
+        break;
+
+      case UPDATE_NEW_MESSAGE_TEXT:
+        this._state.dialogsPage.newMessageText = action.newText;
+        this._callSubscriber(this._state);
+        break;
+
+      default:
+        break;
+    }
+  },
 };
+
+export const addPostActionCreator = () => ({ type: ADD_POST, })
+export const sendMessageActionCreator = () => ({ type: SEND_MESSAGE, })
+export const updateNewPostTextActionCreator = (text) => ({
+    type: UPDATE_NEW_POST_TEXT,
+    newText: text,
+  })
+export const updateNewMessageTextActionCreator = (text) => ({
+    type: UPDATE_NEW_MESSAGE_TEXT,
+    newText: text,
+  })
 
 export default store;
 window.store = store;

@@ -1,6 +1,8 @@
 import React from "react";
 import Post from "./Post/Post";
 import classes from "./MyPosts.module.css";
+import { addPostActionCreator, updateNewPostTextActionCreator } from "../../../redux/store"
+
 
 const MyPosts = (props) => {
   const postsElements = props.profilePage.posts.map((post) => (
@@ -8,12 +10,11 @@ const MyPosts = (props) => {
   ));
   const newPostElement = React.createRef();
   const addPost = () => {
-    props.addPost();
+    props.dispatch(addPostActionCreator());
   };
   const onNewPostTextChange = () => {
     const text = newPostElement.current.value;
-    
-    props.changePostText(text);
+    props.dispatch(updateNewPostTextActionCreator(text))
   }
 
   return (
