@@ -40,6 +40,14 @@ const Sidebar = () => {
         </div>
         <div className={classes.item}>
           <NavLink
+            to="/users"
+            className={(navData) => (navData.isActive ? classes.active : "")}
+          >
+            Find users
+          </NavLink>
+        </div>
+        <div className={classes.item}>
+          <NavLink
             to="/settings"
             className={(navData) => (navData.isActive ? classes.active : "")}
           >
