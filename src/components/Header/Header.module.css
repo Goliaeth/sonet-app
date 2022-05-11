@@ -5,3 +5,6 @@
 .panel img {
   height: 60px;
 }
+.loginBlock {
+  float: right;
+}
