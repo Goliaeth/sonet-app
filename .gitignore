@@ -22,5 +22,8 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> ccf53ee9a103affe210dc1849a16fc79e634f954
 /.vscode
