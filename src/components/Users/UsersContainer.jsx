@@ -1,17 +1,17 @@
+import React from "react"
 import { connect } from "react-redux"
+import { usersAPI } from "../../api/api"
 import {
   follow,
-  unfollow,
-  setUsers,
   setCurrentPage,
-  setTotalUsersCount,
   setIsFetching,
   setIsFollowingInProgress,
+  setTotalUsersCount,
+  setUsers,
+  unfollow,
 } from "../../redux/usersReducer"
-import Users from "./Users"
-import React from "react"
 import Preloader from "../common/Preloader/Preloader"
-import { usersAPI } from "../../api/api"
+import Users from "./Users"
 
 class UsersContainer extends React.Component {
   componentDidMount() {

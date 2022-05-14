@@ -12,7 +12,7 @@ const initialState = {
   totalUsersCount: 0,
   currentPage: 1,
   isFetching: false,
-  isFollowingInProgress: false,
+  isFollowingInProgress: [],
 }
 
 const usersReducer = (state = initialState, action) => {
@@ -72,7 +72,9 @@ const usersReducer = (state = initialState, action) => {
     case SET_IS_FOLLOWING_IN_PROGRESS:
       return {
         ...state,
-        isFollowingInProgress: action.isFollowingInProgress,
+        isFollowingInProgress: action.isFollowingInProgress
+          ? [...state.isFollowingInProgress, action.userId]
+          : state.isFollowingInProgress.filter((id) => id !== action.userId),
       }
 
     default:
@@ -95,9 +97,10 @@ export const setIsFetching = (isFetching) => ({
   type: SET_IS_FETCHING,
   isFetching,
 })
-export const setIsFollowingInProgress = (isFollowingInProgress) => ({
+export const setIsFollowingInProgress = (isFollowingInProgress, userId) => ({
   type: SET_IS_FOLLOWING_IN_PROGRESS,
   isFollowingInProgress,
+  userId,
 })
 
 export default usersReducer
