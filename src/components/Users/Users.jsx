@@ -1,7 +1,6 @@
 import classes from "./Users.module.css"
 import nullUserpic from "../../assets/images/anonim-ava.png"
 import { NavLink } from "react-router-dom"
-import { usersAPI } from "../../api/api"
 
 const Users = (props) => {
   const pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
@@ -51,13 +50,7 @@ const Users = (props) => {
                       (id) => id === user.id
                     )}
                     onClick={() => {
-                      props.setIsFollowingInProgress(true, user.id)
-                      usersAPI.unfollowUser(user.id).then((data) => {
-                        if (data.resultCode === 0) {
-                          props.unfollow(user.id)
-                        }
-                        props.setIsFollowingInProgress(false, user.id)
-                      })
+                      props.unfollow(user.id)
                     }}
                   >
                     Unfollow
@@ -68,13 +61,7 @@ const Users = (props) => {
                       (id) => id === user.id
                     )}
                     onClick={() => {
-                      props.setIsFollowingInProgress(true, user.id)
-                      usersAPI.followUser(user.id).then((data) => {
-                        if (data.resultCode === 0) {
-                          props.follow(user.id)
-                        }
-                        props.setIsFollowingInProgress(false, user.id)
-                      })
+                      props.follow(user.id)
                     }}
                   >
                     Follow
