@@ -7,7 +7,9 @@ import {
   getUsers,
 } from "../../redux/usersReducer"
 import Preloader from "../common/Preloader/Preloader"
+import withAuthRedirect from "../hoc/withAuthRedirect"
 import Users from "./Users"
+import { compose } from "redux"
 
 class UsersContainer extends React.Component {
   componentDidMount() {
@@ -25,7 +27,6 @@ class UsersContainer extends React.Component {
     return (
       <>
         {this.props.isFetching ? <Preloader /> : null}
-        debugger
         <Users
           totalUsersCount={this.props.totalUsersCount}
           pageSize={this.props.pageSize}
@@ -53,9 +54,12 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, {
-  follow,
-  unfollow,
-  setCurrentPage,
-  getUsers,
-})(UsersContainer)
+export default compose(
+  connect(mapStateToProps, {
+    follow,
+    unfollow,
+    setCurrentPage,
+    getUsers,
+  }),
+  withAuthRedirect
+)(UsersContainer)

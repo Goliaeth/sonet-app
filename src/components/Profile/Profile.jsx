@@ -1,15 +1,14 @@
-import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import classes from "./Profile.module.css";
-import MyPostsContainer from "./MyPosts/MyPostsContainer";
+import ProfileInfo from "./ProfileInfo/ProfileInfo"
+import classes from "./Profile.module.css"
+import MyPostsContainer from "./MyPosts/MyPostsContainer"
 
-const Profile = (props) => {  
-  
+const Profile = (props) => {
   return (
     <div>
       <ProfileInfo profile={props.profile} />
-      <MyPostsContainer  />
+      <MyPostsContainer />
     </div>
-  );
-};
+  )
+}
 
-export default Profile;
+export default Profile
