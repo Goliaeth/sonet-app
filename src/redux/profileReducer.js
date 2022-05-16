@@ -57,7 +57,7 @@ const profileReducer = (state = initialState, action) => {
     case SET_USER_STATUS:
       return {
         ...state,
-        status: !action.status ? ":( статус не указан..." : action.status,
+        status: action.status,
       }
 
     default:
