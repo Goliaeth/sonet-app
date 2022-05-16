@@ -21,7 +21,11 @@ const ProfileInfo = (props) => {
           alt='profile-avatar'
         />
         <div>
-          <ProfileStatus status='It is a status!!!!' />
+          <span>{props.profile.fullName}</span>
+          <ProfileStatus
+            status={props.status}
+            updateUserStatus={props.updateUserStatus}
+          />
         </div>
       </div>
     </div>
