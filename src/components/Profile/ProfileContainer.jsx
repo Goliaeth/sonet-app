@@ -37,6 +37,6 @@ export default compose(
     getUserStatus,
     updateUserStatus,
   }),
-  withRouter,
-  withAuthRedirect
+  withRouter
+  // withAuthRedirect
 )(ProfileContainer)

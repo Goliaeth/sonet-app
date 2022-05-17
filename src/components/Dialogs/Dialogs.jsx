@@ -1,38 +1,7 @@
 import classes from "./Dialogs.module.css"
 import DialogItem from "./DialogItem/DialogItem"
 import Message from "./Message/Message"
-import { Form, Field } from "react-final-form"
-
-const SendMessageForm = (props) => {
-  const onSubmit = (values, action) => {
-    props.sendMessage(values.newMessageText)
-    action.reset()
-  }
-
-  return (
-    <>
-      <Form
-        onSubmit={onSubmit}
-        render={({ handleSubmit, submitting, pristine }) => (
-          <form onSubmit={handleSubmit}>
-            <div>
-              <Field
-                placeholder='Enter your message'
-                name='newMessageText'
-                component='textarea'
-              />
-            </div>
-            <div>
-              <button type='submit' disabled={submitting || pristine}>
-                Send message
-              </button>
-            </div>
-          </form>
-        )}
-      />
-    </>
-  )
-}
+import SendMessageForm from "./SendMessageForm/SendMessageForm"
 
 const Dialogs = (props) => {
   const dialogsElements = props.dialogsPage.dialogs.map((dialog) => (

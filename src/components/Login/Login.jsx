@@ -1,5 +1,6 @@
 import classes from "./Login.module.css"
 import { Form, Field } from "react-final-form"
+import { validators } from "../../utils/validators"
 
 const LoginForm = (props) => {
   const onSubmit = (values) => {
@@ -9,20 +10,30 @@ const LoginForm = (props) => {
   return (
     <Form
       onSubmit={onSubmit}
-      render={(props) => (
-        <form onSubmit={props.handleSubmit}>
-          <div>
-            <label>Your login:</label>
-            <Field placeholder='Login' name='login' component='input' />
-          </div>
-          <div>
-            <label>Your password:</label>
-            <Field
-              placeholder='Password'
-              name={"password"}
-              component={"input"}
-            />
-          </div>
+      render={({ handleSubmit, values }) => (
+        <form onSubmit={handleSubmit}>
+          <Field name='login' validate={validators.required}>
+            {({ input, meta }) => (
+              <div>
+                <label>Your login: </label>
+                <input {...input} type='text' placeholder='Enter your login' />
+                {meta.error && meta.touched && <span>{meta.error}</span>}
+              </div>
+            )}
+          </Field>
+          <Field name='password' validate={validators.required}>
+            {({ input, meta }) => (
+              <div>
+                <label>Your password: </label>
+                <input
+                  {...input}
+                  type='text'
+                  placeholder='Enter your password'
+                />
+                {meta.error && meta.touched && <span>{meta.error}</span>}
+              </div>
+            )}
+          </Field>
           <div>
             <Field name='rememberMe' component='input' type='checkbox' />{" "}
             remember me
@@ -30,6 +41,7 @@ const LoginForm = (props) => {
           <div>
             <button type='submit'>Login</button>
           </div>
+          <pre>{JSON.stringify(values, 0, 2)}</pre>
         </form>
       )}
     />
