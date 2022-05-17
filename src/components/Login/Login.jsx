@@ -13,7 +13,7 @@ const LoginForm = (props) => {
         <form onSubmit={props.handleSubmit}>
           <div>
             <label>Your login:</label>
-            <Field placeholder='Login' name={"login"} component={"input"} />
+            <Field placeholder='Login' name='login' component='input' />
           </div>
           <div>
             <label>Your password:</label>
