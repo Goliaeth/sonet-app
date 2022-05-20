@@ -7,7 +7,8 @@ import { Navigate } from "react-router-dom"
 
 const LoginForm = (props) => {
   const onSubmit = (values) => {
-    props.login(values.email, values.password, values.rememberMe)
+    let errors = props.login(values.email, values.password, values.rememberMe)
+    return errors.then((res) => res)
   }
 
   return (

@@ -1,4 +1,5 @@
 import { authAPI } from "../api/api"
+import { FORM_ERROR } from "final-form"
 
 const SET_USER_DATA = "SET_USER_DATA"
 
@@ -39,6 +40,8 @@ export const login = (email, password, rememberMe) => (dispatch) => {
   authAPI.login(email, password, rememberMe).then((response) => {
     if (response.data.resultCode === 0) {
       dispatch(getUserData())
+    } else if (response.data.resultCode === 1) {
+      return { [FORM_ERROR]: response.data.messages[0] }
     }
   })
 }
