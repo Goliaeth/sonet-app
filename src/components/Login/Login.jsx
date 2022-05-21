@@ -4,17 +4,18 @@ import { validators } from "../../utils/validators"
 import { connect } from "react-redux"
 import { login } from "../../redux/authReducer"
 import { Navigate } from "react-router-dom"
+import { FORM_ERROR } from "final-form"
 
 const LoginForm = (props) => {
   const onSubmit = (values) => {
     let errors = props.login(values.email, values.password, values.rememberMe)
-    return errors.then((res) => res)
+    return errors.then((res) => ({ [FORM_ERROR]: res }))
   }
 
   return (
     <Form
       onSubmit={onSubmit}
-      render={({ handleSubmit }) => (
+      render={({ handleSubmit, submitError }) => (
         <form onSubmit={handleSubmit}>
           <Field name='email' validate={validators.required}>
             {({ input, meta }) => (
@@ -42,6 +43,7 @@ const LoginForm = (props) => {
             <Field name='rememberMe' component='input' type='checkbox' />{" "}
             remember me
           </div>
+          {submitError && <div style={{ color: "red" }}>{submitError}</div>}
           <div>
             <button type='submit'>Login</button>
           </div>
