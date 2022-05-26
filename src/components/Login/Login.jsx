@@ -1,14 +1,15 @@
 import classes from "./Login.module.css"
-import { Form, Field } from "react-final-form"
+import { Form } from "react-final-form"
 import { validators } from "../../utils/validators"
 import { connect } from "react-redux"
 import { login } from "../../redux/authReducer"
 import { Navigate } from "react-router-dom"
 import { FORM_ERROR } from "final-form"
+import { createField, Input } from "../common/FormControls/FormControls"
 
-const LoginForm = (props) => {
+const LoginForm = ({ login }) => {
   const onSubmit = (values) => {
-    let errors = props.login(values.email, values.password, values.rememberMe)
+    let errors = login(values.email, values.password, values.rememberMe)
     return errors.then((res) => ({ [FORM_ERROR]: res }))
   }
 
@@ -17,30 +18,28 @@ const LoginForm = (props) => {
       onSubmit={onSubmit}
       render={({ handleSubmit, submitError }) => (
         <form onSubmit={handleSubmit}>
-          <Field name='email' validate={validators.required}>
-            {({ input, meta }) => (
-              <div>
-                <label>Your Email: </label>
-                <input {...input} type='email' placeholder='Enter your Email' />
-                {meta.error && meta.touched && <span>{meta.error}</span>}
-              </div>
-            )}
-          </Field>
-          <Field name='password' validate={validators.required}>
-            {({ input, meta }) => (
-              <div>
-                <label>Your password: </label>
-                <input
-                  {...input}
-                  type='password'
-                  placeholder='Enter your password'
-                />
-                {meta.error && meta.touched && <span>{meta.error}</span>}
-              </div>
-            )}
-          </Field>
+          {createField({
+            name: "email",
+            validate: validators.required,
+            component: Input,
+            type: "email",
+            placeholder: "Enter your Email",
+            label: "Your Email:",
+          })}
+          {createField({
+            name: "password",
+            validate: validators.required,
+            component: Input,
+            type: "password",
+            placeholder: "Enter your password",
+            label: "Your password:",
+          })}
           <div>
-            <Field name='rememberMe' component='input' type='checkbox' />{" "}
+            {createField({
+              name: "rememberMe",
+              component: "input",
+              type: "checkbox",
+            })}{" "}
             remember me
           </div>
           {submitError && <div style={{ color: "red" }}>{submitError}</div>}

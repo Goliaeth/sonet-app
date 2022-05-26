@@ -1,5 +1,6 @@
 import { Form, Field } from "react-final-form"
 import { validators } from "../../../utils/validators"
+import { Input } from "../../common/FormControls/FormControls"
 
 const SendMessageForm = (props) => {
   const onSubmit = (values, action) => {
@@ -10,26 +11,20 @@ const SendMessageForm = (props) => {
   return (
     <Form
       onSubmit={onSubmit}
-      render={({ handleSubmit, submitting, pristine, values }) => (
+      render={({ handleSubmit, submitting, pristine }) => (
         <form onSubmit={handleSubmit}>
-          <Field name='newMessageText' validate={validators.maxLength(15)}>
-            {({ input, meta }) => (
-              <div>
-                <input
-                  {...input}
-                  type='text'
-                  placeholder='Enter your message here'
-                />
-                {meta.error && <span>{meta.error}</span>}
-              </div>
-            )}
-          </Field>
+          <Field
+            name='newMessageText'
+            validate={validators.maxLength(15)}
+            component={Input}
+            type='text'
+            placeholder='Enter your message here'
+          />
           <div>
             <button type='submit' disabled={submitting || pristine}>
               Send message
             </button>
           </div>
-          <pre>{JSON.stringify(values, 0, 2)}</pre>
         </form>
       )}
     />
