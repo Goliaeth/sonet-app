@@ -4,7 +4,7 @@ import nullUserpic from "../../assets/images/anonim-ava.png"
 
 const User = ({ user, isFollowingInProgress, follow, unfollow }) => {
   return (
-    <div key={user.id}>
+    <div>
       <span>
         <div>
           <NavLink to={`/profile/${user.id}`}>

@@ -7,7 +7,6 @@ import {
   requestUsers,
 } from "../../redux/usersReducer"
 import Preloader from "../common/Preloader/Preloader"
-// import withAuthRedirect from "../hoc/withAuthRedirect"
 import Users from "./Users"
 import { compose } from "redux"
 import {
@@ -21,14 +20,16 @@ import {
 
 class UsersContainer extends React.Component {
   componentDidMount() {
+    const { currentPage, pageSize } = this.props
     if (this.props.users.length === 0) {
-      this.props.requestUsers(this.props.currentPage, this.props.pageSize)
+      this.props.requestUsers(currentPage, pageSize)
     }
   }
 
   onPageChanged = (pageNumber) => {
+    const { pageSize } = this.props
     this.props.setCurrentPage(pageNumber)
-    this.props.requestUsers(pageNumber, this.props.pageSize)
+    this.props.requestUsers(pageNumber, pageSize)
   }
 
   render() {
@@ -51,16 +52,6 @@ class UsersContainer extends React.Component {
   }
 }
 
-// const mapStateToProps = (state) => {
-//   return {
-//     users: state.usersPage.users,
-//     pageSize: state.usersPage.pageSize,
-//     totalUsersCount: state.usersPage.totalUsersCount,
-//     currentPage: state.usersPage.currentPage,
-//     isFetching: state.usersPage.isFetching,
-//     isFollowingInProgress: state.usersPage.isFollowingInProgress,
-//   }
-// }
 const mapStateToProps = (state) => {
   return {
     users: getUsers(state),
@@ -79,5 +70,4 @@ export default compose(
     setCurrentPage,
     requestUsers,
   })
-  // withAuthRedirect
 )(UsersContainer)

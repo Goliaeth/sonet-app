@@ -19,15 +19,17 @@ const Users = ({
         currentPage={currentPage}
         onPageChanged={onPageChanged}
       />
-      {users.map((user) => (
-        <User
-          key={user.id}
-          user={user}
-          isFollowingInProgress={isFollowingInProgress}
-          follow={follow}
-          unfollow={unfollow}
-        />
-      ))}
+      <div>
+        {users.map((user) => (
+          <User
+            key={user.id}
+            user={user}
+            isFollowingInProgress={isFollowingInProgress}
+            follow={follow}
+            unfollow={unfollow}
+          />
+        ))}
+      </div>
     </div>
   )
 }

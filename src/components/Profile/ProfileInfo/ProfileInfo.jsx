@@ -1,31 +1,24 @@
 import classes from "./ProfileInfo.module.css"
 import Preloader from "../../common/Preloader/Preloader"
-// import panorama from "../../../assets/images/panorama.jpg"
 import nullUserpic from "../../../assets/images/anonim-ava.png"
 import ProfileStatus from "./ProfileStatus"
 
-const ProfileInfo = (props) => {
-  if (!props.profile) {
+const ProfileInfo = ({ profile, status, updateUserStatus }) => {
+  if (!profile) {
     return <Preloader />
   }
   return (
     <div>
-      {/* <img className={classes.panorama} src={panorama} alt="panorama" /> */}
       <div className={classes.infoPanel}>
         <img
           src={
-            props.profile.photos.large != null
-              ? props.profile.photos.large
-              : nullUserpic
+            profile.photos.large != null ? profile.photos.large : nullUserpic
           }
           alt='profile-avatar'
         />
         <div>
-          <span>{props.profile.fullName}</span>
-          <ProfileStatus
-            status={props.status}
-            updateUserStatus={props.updateUserStatus}
-          />
+          <span>{profile.fullName}</span>
+          <ProfileStatus status={status} updateUserStatus={updateUserStatus} />
         </div>
       </div>
     </div>
