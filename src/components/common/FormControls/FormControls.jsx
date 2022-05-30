@@ -3,7 +3,11 @@ import { Field } from "react-final-form"
 const FormControl = ({ input, meta: { touched, error }, children, label }) => {
   return (
     <div>
-      {label ? <label>{label}</label> : null}
+      {label ? (
+        <label>
+          <b>{label}</b>
+        </label>
+      ) : null}
       <div>{children}</div>
       {error && touched && <span>{error}</span>}
     </div>

@@ -4,6 +4,18 @@ import { createField, Input } from "../../common/FormControls/FormControls"
 const ProfileDataForm = ({ profile, deactivateEditMode }) => {
   const onSubmit = (values) => {
     deactivateEditMode()
+    const contactsData = {}
+    Object.keys(profile.contacts).map(
+      (key) => (contactsData[key] = values[key])
+    )
+    const formData = {
+      fullName: values.fullName,
+      lookingForAJob: values.lookingForAJob,
+      lookingForAJobDescription: values.lookingForAJobDescription,
+      aboutMe: values.aboutMe,
+      contacts: contactsData,
+    }
+    console.log(formData)
   }
 
   const initialValues = {
@@ -11,6 +23,7 @@ const ProfileDataForm = ({ profile, deactivateEditMode }) => {
     lookingForAJob: profile.lookingForAJob,
     lookingForAJobDescription: profile.lookingForAJobDescription,
     aboutMe: profile.aboutMe,
+    ...profile.contacts,
   }
 
   return (
