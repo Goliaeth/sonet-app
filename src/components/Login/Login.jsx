@@ -7,9 +7,14 @@ import { Navigate } from "react-router-dom"
 import { FORM_ERROR } from "final-form"
 import { createField, Input } from "../common/FormControls/FormControls"
 
-const LoginForm = ({ login }) => {
+const LoginForm = ({ login, captchaUrl }) => {
   const onSubmit = (values) => {
-    let errors = login(values.email, values.password, values.rememberMe)
+    let errors = login(
+      values.email,
+      values.password,
+      values.rememberMe,
+      values.captcha
+    )
     return errors.then((res) => ({ [FORM_ERROR]: res }))
   }
 
@@ -42,6 +47,15 @@ const LoginForm = ({ login }) => {
             })}{" "}
             remember me
           </div>
+          {captchaUrl && <img src={captchaUrl} alt='captcha' />}
+          {captchaUrl &&
+            createField({
+              name: "captcha",
+              validate: validators.required,
+              component: Input,
+              type: "text",
+              placeholder: "Enter symbols from image",
+            })}
           {submitError && <div style={{ color: "red" }}>{submitError}</div>}
           <div>
             <button type='submit'>Login</button>
@@ -58,13 +72,14 @@ const Login = (props) => {
   return (
     <>
       <h1>LOGIN</h1>
-      <LoginForm login={props.login} />
+      <LoginForm login={props.login} captchaUrl={props.captchaUrl} />
     </>
   )
 }
 
 const mapStateToProps = (state) => ({
   isAuth: state.auth.isAuth,
+  captchaUrl: state.auth.captchaUrl,
 })
 
 export default connect(mapStateToProps, { login })(Login)
