@@ -2,7 +2,7 @@ import classes from "./ProfileInfo.module.css"
 import Preloader from "../../common/Preloader/Preloader"
 import nullUserpic from "../../../assets/images/anonim-ava.png"
 import ProfileStatus from "./ProfileStatus"
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import ProfileDataForm from "./ProfileDataForm"
 
 const ProfileInfo = ({
@@ -11,6 +11,7 @@ const ProfileInfo = ({
   updateUserStatus,
   isOwner,
   savePhoto,
+  saveProfile,
 }) => {
   const [editMode, setEditMode] = useState(false)
 
@@ -87,6 +88,7 @@ const ProfileInfo = ({
           <ProfileDataForm
             profile={profile}
             deactivateEditMode={deactivateEditMode}
+            saveProfile={saveProfile}
           />
         ) : (
           <ProfileData

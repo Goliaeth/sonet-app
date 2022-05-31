@@ -1,21 +1,17 @@
 import { Form } from "react-final-form"
 import { createField, Input } from "../../common/FormControls/FormControls"
+import { FORM_ERROR } from "final-form"
 
-const ProfileDataForm = ({ profile, deactivateEditMode }) => {
+const ProfileDataForm = ({ profile, deactivateEditMode, saveProfile }) => {
   const onSubmit = (values) => {
-    deactivateEditMode()
-    const contactsData = {}
-    Object.keys(profile.contacts).map(
-      (key) => (contactsData[key] = values[key])
-    )
-    const formData = {
-      fullName: values.fullName,
-      lookingForAJob: values.lookingForAJob,
-      lookingForAJobDescription: values.lookingForAJobDescription,
-      aboutMe: values.aboutMe,
-      contacts: contactsData,
-    }
-    console.log(formData)
+    const errors = saveProfile(values)
+    return errors.then((res) => {
+      if (!res) {
+        deactivateEditMode()
+      } else {
+        return errors.then((res) => ({ [FORM_ERROR]: res }))
+      }
+    })
   }
 
   const initialValues = {
@@ -23,7 +19,7 @@ const ProfileDataForm = ({ profile, deactivateEditMode }) => {
     lookingForAJob: profile.lookingForAJob,
     lookingForAJobDescription: profile.lookingForAJobDescription,
     aboutMe: profile.aboutMe,
-    ...profile.contacts,
+    contacts: profile.contacts,
   }
 
   return (
@@ -39,7 +35,7 @@ const ProfileDataForm = ({ profile, deactivateEditMode }) => {
             label: "Full Name:",
           })}
           <div>
-            Looking for a job:{" "}
+            <b>Looking for a job: </b>
             {createField({
               name: "lookingForAJob",
               component: "input",
@@ -59,17 +55,18 @@ const ProfileDataForm = ({ profile, deactivateEditMode }) => {
             label: "About me:",
           })}
           <div>
-            Contacts:
+            <b>Contacts:</b>
             {Object.keys(profile.contacts).map((key) =>
               createField({
                 key: key,
-                name: key,
+                name: `contacts.${key}`,
                 component: Input,
                 type: "text",
                 label: `${key}:`,
               })
             )}
           </div>
+          {submitError && <div style={{ color: "red" }}>{submitError}</div>}
           <div>
             <button type='submit'>Save</button>
           </div>

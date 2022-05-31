@@ -5,6 +5,7 @@ const DELETE_POST = "sonet-app/profile/DELETE_POST"
 const SET_USER_PROFILE = "sonet-app/profile/SET_USER_PROFILE"
 const SET_USER_STATUS = "sonet-app/profile/SET_USER_STATUS"
 const SAVE_PHOTO_SUCCESS = "sonet-app/profile/SAVE_PHOTO_SUCCESS"
+// const SAVE_PROFILE_SUCCESS
 
 const initialState = {
   posts: [
@@ -105,6 +106,15 @@ export const savePhoto = (photo) => async (dispatch) => {
   const response = await profileAPI.savePhoto(photo)
   if (response.data.resultCode === 0) {
     dispatch(savePhotoSuccess(response.data.data.photos))
+  }
+}
+export const saveProfile = (profileData) => async (dispatch, getState) => {
+  const userId = getState().auth.userId
+  const response = await profileAPI.updateProfile(profileData)
+  if (response.data.resultCode === 0) {
+    dispatch(getUserProfile(userId))
+  } else if (response.data.resultCode === 1) {
+    return response.data.messages[0]
   }
 }
 
