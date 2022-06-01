@@ -1,5 +1,6 @@
 import { useState } from "react"
 import classes from "./Paginator.module.css"
+import classNames from "classnames"
 
 const Paginator = ({
   totalItemsCount,
@@ -20,7 +21,7 @@ const Paginator = ({
   const rightPortionPageNumber = portionNumber * portionSize
 
   return (
-    <div>
+    <div className={classes.paginator}>
       {portionNumber > 1 && (
         <button
           onClick={() => {
@@ -38,10 +39,11 @@ const Paginator = ({
         .map((page) => {
           return (
             <span
+              className={classNames(
+                { [classes.selectedPage]: currentPage === page },
+                classes.pageNumber
+              )}
               key={page}
-              className={
-                currentPage === page ? classes.selectedPage : undefined
-              }
               onClick={() => {
                 onPageChanged(page)
               }}

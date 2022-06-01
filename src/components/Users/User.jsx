@@ -1,6 +1,6 @@
 import classes from "./Users.module.css"
 import { NavLink } from "react-router-dom"
-import nullUserpic from "../../assets/images/anonim-ava.png"
+import nullUserpic from "../../assets/images/userpic.png"
 
 const User = ({ user, isFollowingInProgress, follow, unfollow }) => {
   return (

@@ -1,8 +1,8 @@
 import classes from "./ProfileInfo.module.css"
 import Preloader from "../../common/Preloader/Preloader"
-import nullUserpic from "../../../assets/images/anonim-ava.png"
+import nullUserpic from "../../../assets/images/userpic.png"
 import ProfileStatus from "./ProfileStatus"
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import ProfileDataForm from "./ProfileDataForm"
 
 const ProfileInfo = ({
