@@ -1,4 +1,4 @@
-# What has been tried on this project in chronological order
+# Timeline
 
 Project created using “Create React App”.\
 For styling, it was decided to use CSS Modules in React.\
