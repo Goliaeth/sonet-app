@@ -26,7 +26,7 @@ Added app initializing at application start.\
 Added selectors to mapStateToProps().\
 Used “reselect”.\
 Trying hooks. Made some components functional.\
-Trying unit tests with “jest”. Added test suit with some tests for reducer. Trying to test components in React.\ Added “react-test-renderer”. Added some tests for ProfileStatus component.\
+Trying unit tests with “jest”. Added test suit with some tests for reducer. Trying to test components in React. Added “react-test-renderer”. Added some tests for ProfileStatus component.\
 Trying “redux-ducks”.\
 Added profile photo uploading to server via API.\
 Added captcha from server when login failed.\
