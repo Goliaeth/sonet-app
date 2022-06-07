@@ -39,7 +39,7 @@ Adding profile photo-file uploading to server via API.\
 Adding captcha from server when login failed.\
 Adding errors handling **try/catch**.\
 Adding **“classnames”** library.\
-Trying **React.lazy()**, `<Suspense fallback={}>`.
+Trying **React.lazy(), `<Suspense fallback={}>`**.
 
 ## Available Scripts
 
