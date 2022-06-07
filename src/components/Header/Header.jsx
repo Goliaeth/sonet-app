@@ -16,9 +16,10 @@ const Header = (props) => {
                 {props.login} <button onClick={props.logout}>Logout</button>
               </div>
             ) : (
-              <NavLink to={"/login"} className={styles.link}>Login</NavLink>
+              <NavLink to={"/login"} className={styles.link}>
+                Login
+              </NavLink>
             )}
-            
           </div>
         </div>
       </div>
