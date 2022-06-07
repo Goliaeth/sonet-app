@@ -1,10 +1,46 @@
-.panel {
-  grid-area: header;
-  background-color: #918e9f;
+.header {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 50;
 }
-.panel img {
-  height: 60px;
+
+.container {
+  max-width: 1180px;
+  margin: 0px auto;
+  padding: 0px 10px;
 }
-.loginBlock {
-  float: right;
+
+.container:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: red;
+}
+
+.body {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  height: 80px;
+  align-items: center;
+}
+
+.logo {
+  flex: 0 0 60px;
+}
+
+.logo img {
+  max-width: 100%;
+}
+
+.menu {
+}
+
+.link {
 }

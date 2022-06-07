@@ -1,4 +1,4 @@
-import classes from "./Login.module.css"
+import styles from "./Login.module.css"
 import { Form } from "react-final-form"
 import { validators } from "../../utils/validators"
 import { connect } from "react-redux"
