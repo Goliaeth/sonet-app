@@ -7,7 +7,7 @@ import usersReducer from "./usersReducer"
 import thunkMiddleware from "redux-thunk"
 import appReducer from "./appReducer"
 
-const reducers = combineReducers({
+const rootReducer = combineReducers({
   profilePage: profileReducer,
   dialogsPage: dialogsReducer,
   sidebar: sidebarReducer,
@@ -16,10 +16,14 @@ const reducers = combineReducers({
   app: appReducer,
 })
 
+type RootReducerType = typeof rootReducer // (globalstate: AppStateType) => AppStateType
+export type AppStateType = ReturnType<RootReducerType>
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
 const store = createStore(
-  reducers,
+  rootReducer,
   composeEnhancers(applyMiddleware(thunkMiddleware))
 )
 
