@@ -1,3 +1,4 @@
+import React from "react"
 import classes from "./Post.module.css";
 import userpic from "../../../../assets/images/userpic.png";
 

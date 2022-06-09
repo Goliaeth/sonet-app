@@ -1,4 +1,4 @@
-import classes from "./Message.module.css";
+import React from "react"
 
 const Message = (props) => {
   return <div className={props.givenClass}>{props.message}</div>;

@@ -1,9 +1,18 @@
+import { type } from "os"
 import { authAPI, securityAPI } from "../api/api"
 
 const SET_USER_DATA = "sonet-app/auth/SET_USER_DATA"
 const GET_CAPTCHA_URL_SUCCESS = "sonet-app/auth/GET_CAPTCHA_URL_SUCCESS"
 
-const initialState = {
+export type InitialStateType = {
+  userId: number | null
+  login: string | null
+  email: string | null
+  isAuth: boolean
+  captchaUrl: string | null
+}
+
+const initialState: InitialStateType = {
   userId: null,
   login: null,
   email: null,
@@ -11,7 +20,7 @@ const initialState = {
   captchaUrl: null, //if null then captcha is not required
 }
 
-const authReducer = (state = initialState, action) => {
+const authReducer = (state = initialState, action: any): InitialStateType => {
   switch (action.type) {
     case SET_USER_DATA:
       return {
@@ -28,12 +37,27 @@ const authReducer = (state = initialState, action) => {
   }
 }
 
-export const setUserData = (userId, email, login, isAuth) => ({
+type SetUserDataActionPayloadType = {
+  userId: number | null
+  email: string | null
+  login: string | null
+  isAuth: boolean
+}
+type SetUserDataActionType = {
+  type: typeof SET_USER_DATA
+  payload: SetUserDataActionPayloadType
+}
+export const setUserData = (
+  userId: number | null,
+  email: string | null,
+  login: string | null,
+  isAuth: boolean
+): SetUserDataActionType => ({
   type: SET_USER_DATA,
   payload: { userId, email, login, isAuth },
 })
 
-export const getUserData = () => async (dispatch) => {
+export const getUserData = () => async (dispatch: any) => {
   const data = await authAPI.me()
 
   if (data.resultCode === 0) {
@@ -43,7 +67,7 @@ export const getUserData = () => async (dispatch) => {
 }
 
 export const login =
-  (email, password, rememberMe, captcha) => async (dispatch) => {
+  (email: string, password: string, rememberMe: boolean, captcha: any) => async (dispatch: any) => {
     const response = await authAPI.login(email, password, rememberMe, captcha)
 
     if (response.data.resultCode === 0) {
@@ -57,7 +81,7 @@ export const login =
     }
   }
 
-export const logout = () => async (dispatch) => {
+export const logout = () => async (dispatch: any) => {
   const response = await authAPI.logout()
 
   if (response.data.resultCode === 0) {
@@ -65,11 +89,15 @@ export const logout = () => async (dispatch) => {
   }
 }
 
-export const getCaptchaUrlSuccess = (captchaUrl) => ({
+type GetCaptchaUrlSuccessActionType = {
+  type: typeof GET_CAPTCHA_URL_SUCCESS
+  captchaUrl: string | null
+}
+export const getCaptchaUrlSuccess = (captchaUrl: string | null): GetCaptchaUrlSuccessActionType => ({
   type: GET_CAPTCHA_URL_SUCCESS,
   captchaUrl,
 })
-export const getCaptchaUrl = () => async (dispatch) => {
+export const getCaptchaUrl = () => async (dispatch: any) => {
   const response = await securityAPI.getCaptchaUrl()
   const captchaUrl = response.data.url
   dispatch(getCaptchaUrlSuccess(captchaUrl))

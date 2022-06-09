@@ -1,3 +1,4 @@
+import React from "react"
 import { NavLink } from "react-router-dom";
 import Friends from "./Friends/Friend";
 import classes from "./Sidebar.module.css";

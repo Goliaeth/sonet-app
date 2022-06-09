@@ -1,3 +1,8 @@
+type FriendType = {
+  id: number
+  name: string
+  avatar: string
+}
 const initialState = {
   friends: [
     {
@@ -15,10 +20,11 @@ const initialState = {
       name: "Michael",
       avatar: "",
     },
-  ],
+  ] as Array<FriendType>,
 }
+export type InitialStateType = typeof initialState
 
-const sidebarReducer = (state = initialState, action) => {
+const sidebarReducer = (state = initialState, action: any): InitialStateType => {
   
   
   return state;

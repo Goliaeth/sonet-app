@@ -1,11 +1,12 @@
 import { profileAPI } from "../api/api"
+import { PostType, PohotosType, ProfileType } from "../types/types"
 
 const ADD_POST = "sonet-app/profile/ADD_POST"
 const DELETE_POST = "sonet-app/profile/DELETE_POST"
 const SET_USER_PROFILE = "sonet-app/profile/SET_USER_PROFILE"
 const SET_USER_STATUS = "sonet-app/profile/SET_USER_STATUS"
 const SAVE_PHOTO_SUCCESS = "sonet-app/profile/SAVE_PHOTO_SUCCESS"
-// const SAVE_PROFILE_SUCCESS
+
 
 const initialState = {
   posts: [
@@ -24,14 +25,15 @@ const initialState = {
       message: "Bla-bla-bla",
       likesCount: 7,
     },
-  ],
-  profile: null,
-  status: "------",
+  ] as Array<PostType>,
+  profile: null as ProfileType | null,
+  status: "",
 }
+export type InitialStateType = typeof initialState
 
-const profileReducer = (state = initialState, action) => {
+const profileReducer = (state = initialState, action: any) => {
   switch (action.type) {
-    case ADD_POST:
+    case ADD_POST:{
       const newPost = {
         id: 5,
         message: action.text,
@@ -40,7 +42,7 @@ const profileReducer = (state = initialState, action) => {
       return {
         ...state,
         posts: [...state.posts, newPost],
-      }
+      }}
 
     case DELETE_POST:
       return {
@@ -74,24 +76,40 @@ const profileReducer = (state = initialState, action) => {
   }
 }
 
-export const addPostActionCreator = (text) => ({ type: ADD_POST, text })
-export const deletePostActionCreator = (postId) => ({
+type AddPostActionType = {
+  type: typeof ADD_POST
+  text: string
+}
+export const addPostActionCreator = (text: string): AddPostActionType => ({ type: ADD_POST, text })
+type DeletePostActionType = {
+  type: typeof DELETE_POST
+  postId: number
+}
+export const deletePostActionCreator = (postId: number): DeletePostActionType => ({
   type: DELETE_POST,
   postId,
 })
-export const setUserProfile = (profile) => ({ type: SET_USER_PROFILE, profile })
-export const getUserProfile = (userId) => async (dispatch) => {
+type SetUserProfileActionType = {
+  type: typeof SET_USER_PROFILE
+  profile: ProfileType
+}
+export const setUserProfile = (profile: ProfileType): SetUserProfileActionType => ({ type: SET_USER_PROFILE, profile })
+export const getUserProfile = (userId: number) => async (dispatch: any) => {
   const data = await profileAPI.getProfile(userId)
 
   dispatch(setUserProfile(data))
 }
-export const setUserStatus = (status) => ({ type: SET_USER_STATUS, status })
-export const getUserStatus = (userId) => async (dispatch) => {
+type SetUserStatusActionType = {
+  type: typeof SET_USER_STATUS
+  status: string
+}
+export const setUserStatus = (status: string): SetUserStatusActionType => ({ type: SET_USER_STATUS, status })
+export const getUserStatus = (userId: number) => async (dispatch: any) => {
   const response = await profileAPI.getStatus(userId)
 
   dispatch(setUserStatus(response.data))
 }
-export const updateUserStatus = (status) => async (dispatch) => {
+export const updateUserStatus = (status: string) => async (dispatch: any) => {
   try {
     const response = await profileAPI.updateStatus(status)
 
@@ -103,17 +121,21 @@ export const updateUserStatus = (status) => async (dispatch) => {
     // some logic with different error codes
   }
 }
-export const savePhotoSuccess = (photos) => ({
+type SavePhotoSuccessActionType = {
+  type: typeof SAVE_PHOTO_SUCCESS
+  photos: PohotosType
+}
+export const savePhotoSuccess = (photos: PohotosType): SavePhotoSuccessActionType => ({
   type: SAVE_PHOTO_SUCCESS,
   photos,
 })
-export const savePhoto = (photo) => async (dispatch) => {
+export const savePhoto = (photo: PohotosType) => async (dispatch: any) => {
   const response = await profileAPI.savePhoto(photo)
   if (response.data.resultCode === 0) {
     dispatch(savePhotoSuccess(response.data.data.photos))
   }
 }
-export const saveProfile = (profileData) => async (dispatch, getState) => {
+export const saveProfile = (profileData: ProfileType) => async (dispatch: any, getState: any) => {
   const userId = getState().auth.userId
   const response = await profileAPI.updateProfile(profileData)
   if (response.data.resultCode === 0) {

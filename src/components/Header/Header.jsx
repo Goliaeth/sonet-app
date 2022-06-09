@@ -1,3 +1,4 @@
+import React from "react"
 import classes from "./Header.module.css"
 import logo from "../../assets/images/SoNet-App-logo.png"
 import { NavLink } from "react-router-dom"

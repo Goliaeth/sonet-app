@@ -1,6 +1,6 @@
-import classes from "./Friends.module.css";
+import React from "react"
 
-const Friends = (props) => {
+const Friends = () => {
   return <div>Friends online</div>;
 };
 
