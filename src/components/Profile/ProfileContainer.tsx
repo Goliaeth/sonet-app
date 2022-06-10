@@ -11,8 +11,27 @@ import {
 import withAuthRedirect from "../hoc/withAuthRedirect"
 import { compose } from "redux"
 import withRouter from "../hoc/withRouter"
+import { AppStateType } from "../../redux/reduxStore"
+import { PohotosType, ProfileType } from "../../types/types"
 
-class ProfileContainer extends React.Component {
+type MapStatePropsType = {
+  profile: ProfileType
+  status: string
+  userId: number | null
+}
+type MapDispatchPropsType = {
+  getUserProfile: (userId: number) => void
+  getUserStatus: (userId: number) => void
+  updateUserStatus: (status: string) => void
+  savePhoto: (photo: PohotosType) => void
+  saveProfile: (photo: PohotosType) => void
+}
+type OwnPropsType = {
+  params: any
+}
+type PropsType = MapStatePropsType & MapDispatchPropsType & OwnPropsType
+
+class ProfileContainer extends React.Component<PropsType> {
   refreshProfile() {
     let userId = this.props.params.userId
     if (!userId) {
@@ -26,7 +45,7 @@ class ProfileContainer extends React.Component {
     this.refreshProfile()
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: PropsType) {
     if (this.props.params.userId !== prevProps.params.userId) {
       this.refreshProfile()
     }
@@ -37,7 +56,7 @@ class ProfileContainer extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: AppStateType): MapStatePropsType => ({
   profile: state.profilePage.profile,
   status: state.profilePage.status,
   userId: state.auth.userId,

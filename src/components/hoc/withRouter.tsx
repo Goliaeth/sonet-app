@@ -1,9 +1,8 @@
-
 import React from "react"
 import { useParams } from "react-router-dom"
 
-const withRouter = (Component) => {
-  const RedirectComponent = (props) => {
+const withRouter = (Component: any) => {
+  const RedirectComponent = (props: any) => {
     return <Component {...props} params={useParams()} />
   }
 
