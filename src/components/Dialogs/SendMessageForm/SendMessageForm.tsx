@@ -3,8 +3,12 @@ import { Form, Field } from "react-final-form"
 import { validators } from "../../../utils/validators"
 import { Input } from "../../common/FormControls/FormControls"
 
-const SendMessageForm = (props) => {
-  const onSubmit = (values, action) => {
+type SendMessageFormPropsType = {
+  sendMessage: (text: string) => void
+}
+
+const SendMessageForm: React.FC<SendMessageFormPropsType> = (props) => {
+  const onSubmit = (values: any, action: any) => {
     props.sendMessage(values.newMessageText)
     action.reset()
   }

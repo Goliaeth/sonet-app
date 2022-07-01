@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react"
 
-const ProfileStatus = (props) => {
+type PropsType = {
+  status: string
+  updateUserStatus: (status: string) => void
+}
+
+const ProfileStatus: React.FC<PropsType> = (props) => {
   const [editMode, setEditMode] = useState(false)
   const [status, setStatus] = useState(props.status)
 
@@ -17,7 +22,7 @@ const ProfileStatus = (props) => {
     props.updateUserStatus(status)
   }
 
-  const onStatusChange = (e) => {
+  const onStatusChange: React.ReactEventHandler<HTMLInputElement> = (e) => {
     setStatus(e.currentTarget.value)
   }
 

@@ -3,8 +3,17 @@ import classes from "./Dialogs.module.css"
 import DialogItem from "./DialogItem/DialogItem"
 import Message from "./Message/Message"
 import SendMessageForm from "./SendMessageForm/SendMessageForm"
+import { DialogType, MessageType } from "../../redux/dialogsReducer"
 
-const Dialogs = (props) => {
+type DialogsProps = {
+  dialogsPage: {
+    dialogs: DialogType[]
+    messages: MessageType[]
+  }
+  sendMessage: (text: string) => void
+}
+
+const Dialogs: React.FC<DialogsProps> = (props) => {
   const dialogsElements = props.dialogsPage.dialogs.map((dialog) => (
     <DialogItem key={dialog.id} id={dialog.id} name={dialog.name} />
   ))

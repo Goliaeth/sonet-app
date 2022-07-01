@@ -2,9 +2,16 @@ import React from "react"
 import { Form } from "react-final-form"
 import { createField, Input } from "../../common/FormControls/FormControls"
 import { FORM_ERROR } from "final-form"
+import { PohotosType, ProfileType } from "../../../types/types"
 
-const ProfileDataForm = ({ profile, deactivateEditMode, saveProfile }) => {
-  const onSubmit = (values) => {
+type ProfileDataFormPropsType = {
+  profile: ProfileType
+  deactivateEditMode: () => void
+  saveProfile: (profileData: ProfileType) => Promise<any>
+}
+
+const ProfileDataForm: React.FC<ProfileDataFormPropsType> = ({ profile, deactivateEditMode, saveProfile }) => {
+  const onSubmit = (values: any) => {
     const errors = saveProfile(values)
     return errors.then((res) => {
       if (!res) {
@@ -19,7 +26,7 @@ const ProfileDataForm = ({ profile, deactivateEditMode, saveProfile }) => {
     fullName: profile.fullName,
     lookingForAJob: profile.lookingForAJob,
     lookingForAJobDescription: profile.lookingForAJobDescription,
-    aboutMe: profile.aboutMe,
+    // aboutMe: profile.aboutMe,
     contacts: profile.contacts,
   }
 
@@ -49,12 +56,12 @@ const ProfileDataForm = ({ profile, deactivateEditMode, saveProfile }) => {
             type: "text",
             label: "Looking for a job description:",
           })}
-          {createField({
+          {/* {createField({
             name: "aboutMe",
             component: Input,
             type: "text",
             label: "About me:",
-          })}
+          })} */}
           <div>
             <b>Contacts:</b>
             {Object.keys(profile.contacts).map((key) =>

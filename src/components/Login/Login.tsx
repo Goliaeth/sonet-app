@@ -6,10 +6,15 @@ import { login } from "../../redux/authReducer"
 import { Navigate } from "react-router-dom"
 import { FORM_ERROR } from "final-form"
 import { createField, Input } from "../common/FormControls/FormControls"
+import { AppStateType } from "../../redux/reduxStore"
 
-const LoginForm = ({ login, captchaUrl }) => {
-  const onSubmit = (values) => {
-    let errors = login(
+type LoginFormPropsType = {
+  login: (email: string, password: string, rememberMe: boolean, captcha: string) => Promise<any>
+  captchaUrl: string
+}
+const LoginForm: React.FC<LoginFormPropsType> = ({ login, captchaUrl }) => {
+  const onSubmit = (values: any) => {
+    const errors = login(
       values.email,
       values.password,
       values.rememberMe,
@@ -66,7 +71,12 @@ const LoginForm = ({ login, captchaUrl }) => {
   )
 }
 
-const Login = (props) => {
+type LoginPropsType = {
+  isAuth: boolean
+  captchaUrl: string
+  login: (email: string, password: string, rememberMe: boolean, captcha: string) => Promise<any>
+}
+const Login: React.FC<LoginPropsType> = (props) => {
   if (props.isAuth) return <Navigate replace to={"/profile"} />
 
   return (
@@ -77,7 +87,7 @@ const Login = (props) => {
   )
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: any) => ({
   isAuth: state.auth.isAuth,
   captchaUrl: state.auth.captchaUrl,
 })

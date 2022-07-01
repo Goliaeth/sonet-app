@@ -4,8 +4,18 @@ import nullUserpic from "../../../assets/images/userpic.png"
 import ProfileStatus from "./ProfileStatus"
 import React, { useState } from "react"
 import ProfileDataForm from "./ProfileDataForm"
+import { ContactType, PohotosType, ProfileType } from "../../../types/types"
 
-const ProfileInfo = ({
+type PropsType = {
+  profile: ProfileType
+  status: string
+  updateUserStatus: (status: string) => void
+  isOwner: boolean
+  savePhoto: (photo: PohotosType) => void
+  saveProfile: (profileData: ProfileType) => Promise<any>
+}
+
+const ProfileInfo: React.FC<PropsType> = ({
   profile,
   status,
   updateUserStatus,
@@ -15,13 +25,18 @@ const ProfileInfo = ({
 }) => {
   const [editMode, setEditMode] = useState(false)
 
-  const onProfilePhotoSelected = (e) => {
+  const onProfilePhotoSelected = (e: any) => {
     if (e.target.files.length) {
       savePhoto(e.target.files[0])
     }
   }
 
-  const Contact = ({ contactTitle, contactValue }) => {
+  type ContactPropsType = {
+    contactTitle: string
+    contactValue: string
+  }
+
+  const Contact: React.FC<ContactPropsType> = ({ contactTitle, contactValue }) => {
     return (
       <div className={classes.contact}>
         <b>{contactTitle}</b>: {contactValue}
@@ -29,7 +44,12 @@ const ProfileInfo = ({
     )
   }
 
-  const ProfileData = ({ profile, isOwner, activateEditMode }) => {
+  type ProfileDataPropsType = {
+    profile: ProfileType
+    isOwner: boolean
+    activateEditMode: () => void
+  }
+  const ProfileData: React.FC<ProfileDataPropsType> = ({ profile, isOwner, activateEditMode }) => {
     return (
       <div>
         <div>
@@ -44,16 +64,16 @@ const ProfileInfo = ({
             {profile.lookingForAJobDescription}
           </div>
         )}
-        <div>
+        {/* <div>
           <b>About me:</b> {profile.aboutMe || "----"}
-        </div>
+        </div> */}
         <div>
           <b>Contacts:</b>
           {Object.keys(profile.contacts).map((key) => (
             <Contact
               key={key}
               contactTitle={key}
-              contactValue={profile.contacts[key] || "----"}
+              contactValue={profile.contacts[key as keyof ContactType] || "----"}
             />
           ))}
         </div>

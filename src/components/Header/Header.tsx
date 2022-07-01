@@ -3,14 +3,19 @@ import classes from "./Header.module.css"
 import logo from "../../assets/images/SoNet-App-logo.png"
 import { NavLink } from "react-router-dom"
 
-const Header = (props) => {
+type HeaderPropsType = {
+  isAuth: boolean
+  login: string | null
+  logout: () => void
+}
+const Header: React.FC<HeaderPropsType> = ({ isAuth, login, logout }) => {
   return (
     <header className={classes.panel}>
       <img src={logo} alt='main-logo' />
       <div className={classes.loginBlock}>
-        {props.isAuth ? (
+        {isAuth ? (
           <div>
-            {props.login} <button onClick={props.logout}>Logout</button>
+            {login} <button onClick={logout}>Logout</button>
           </div>
         ) : (
           <NavLink to={"/login"}>Login</NavLink>

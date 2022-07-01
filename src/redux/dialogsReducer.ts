@@ -1,10 +1,10 @@
 const SEND_MESSAGE = "sonet-app/dialogs/SEND_MESSAGE"
 
-type DialogType = {
+export type DialogType = {
   id: number
   name: string
 }
-type MessageType = {
+export type MessageType = {
   id: number
   text: string
 }

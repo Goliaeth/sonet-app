@@ -3,8 +3,12 @@ import { Form, Field } from "react-final-form"
 import { validators } from "../../../../utils/validators"
 import { Input } from "../../../common/FormControls/FormControls"
 
-const NewPostForm = (props) => {
-  const onSubmit = (values, action) => {
+type NewPostFormPropsType = {
+  addPost: (postText: string) => void
+}
+
+const NewPostForm: React.FC<NewPostFormPropsType> = (props) => {
+  const onSubmit = (values: any, action: any) => {
     props.addPost(values.postText)
     action.reset()
   }
