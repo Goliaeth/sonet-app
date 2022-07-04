@@ -64,13 +64,18 @@ const profileReducer = (state = initialState, action: ActionsTypes): InitialStat
         status: action.status,
       }
 
-    case SAVE_PHOTO_SUCCESS:
-      return {
+    case SAVE_PHOTO_SUCCESS:{
+      // ! Из-за возможного null получается чо нельзя null.photos = action.photos
+      // ! Выяснить что делать
+      if (state.profile) {
+        return {
         ...state,
         profile: {
           ...state.profile,
           photos: action.photos,
         },
+        }}
+        return state
       }
 
     default:

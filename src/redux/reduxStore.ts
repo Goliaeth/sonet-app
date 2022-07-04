@@ -18,6 +18,10 @@ const rootReducer = combineReducers({
 
 type RootReducerType = typeof rootReducer // (globalstate: AppStateType) => AppStateType
 export type AppStateType = ReturnType<RootReducerType>
+
+type PropertiesTypes<T> = T extends { [key: string]: infer U } ? U : never
+export type InferActionsType<T extends { [key: string]: (...args: any[]) => any }> = ReturnType<PropertiesTypes<T>>
+
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose

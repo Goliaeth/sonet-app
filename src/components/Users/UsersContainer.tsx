@@ -2,7 +2,7 @@ import React from "react"
 import { connect } from "react-redux"
 import {
   follow,
-  setCurrentPage,
+  actions,
   unfollow,
   requestUsers,
 } from "../../redux/usersReducer"
@@ -91,7 +91,7 @@ export default compose(
   connect<MapStatePropsType, MapDispatchPropsType, OwnPropsType, AppStateType>(mapStateToProps, {
     follow,
     unfollow,
-    setCurrentPage,
+    setCurrentPage: actions.setCurrentPage,
     requestUsers,
   })
 )(UsersContainer)
