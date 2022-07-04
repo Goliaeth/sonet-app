@@ -1,7 +1,10 @@
 import React from "react"
-import { Field } from "react-final-form"
+import { Field, FieldRenderProps } from "react-final-form"
 
-const FormControl = ({ input, meta: { touched, error }, children, label }) => {
+// type FormControlPropsType = {
+
+// }
+const FormControl: React.FC<FieldRenderProps<any>> = ({ input, meta: { touched, error }, children, label }) => {
   return (
     <div>
       {label ? (
@@ -15,7 +18,7 @@ const FormControl = ({ input, meta: { touched, error }, children, label }) => {
   )
 }
 
-export const Input = (props) => {
+export const Input: React.FC<FieldRenderProps<any>> = (props) => {
   const { input, ...restProps } = props
   return (
     <FormControl {...props}>
@@ -24,4 +27,4 @@ export const Input = (props) => {
   )
 }
 
-export const createField = (props) => <Field {...props} />
+export const createField = (props: any) => <Field {...props} />

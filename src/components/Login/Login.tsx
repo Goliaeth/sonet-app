@@ -10,10 +10,16 @@ import { AppStateType } from "../../redux/reduxStore"
 
 type LoginFormPropsType = {
   login: (email: string, password: string, rememberMe: boolean, captcha: string) => Promise<any>
-  captchaUrl: string
+  captchaUrl: string | null
+}
+type ValuesType = {
+  email: string
+  password: string
+  rememberMe: boolean
+  captcha: string
 }
 const LoginForm: React.FC<LoginFormPropsType> = ({ login, captchaUrl }) => {
-  const onSubmit = (values: any) => {
+  const onSubmit = (values: ValuesType) => {
     const errors = login(
       values.email,
       values.password,
@@ -71,11 +77,14 @@ const LoginForm: React.FC<LoginFormPropsType> = ({ login, captchaUrl }) => {
   )
 }
 
-type LoginPropsType = {
+type LoginMapStatePropsType = {
   isAuth: boolean
-  captchaUrl: string
-  login: (email: string, password: string, rememberMe: boolean, captcha: string) => Promise<any>
+  captchaUrl: string | null
 }
+type LoginDispatchPropsType = {
+  login: (email: string, password: string, rememberMe: boolean, captcha: string) => any
+}
+type LoginPropsType = LoginMapStatePropsType & LoginDispatchPropsType
 const Login: React.FC<LoginPropsType> = (props) => {
   if (props.isAuth) return <Navigate replace to={"/profile"} />
 
@@ -87,7 +96,7 @@ const Login: React.FC<LoginPropsType> = (props) => {
   )
 }
 
-const mapStateToProps = (state: any) => ({
+const mapStateToProps = (state: AppStateType): LoginMapStatePropsType => ({
   isAuth: state.auth.isAuth,
   captchaUrl: state.auth.captchaUrl,
 })

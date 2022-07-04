@@ -15,7 +15,7 @@ import { AppStateType } from "../../redux/reduxStore"
 import { PohotosType, ProfileType } from "../../types/types"
 
 type MapStatePropsType = {
-  profile: ProfileType
+  profile: ProfileType | null
   status: string
   userId: number | null
 }
