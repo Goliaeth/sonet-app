@@ -1,4 +1,4 @@
-import { usersAPI } from "../api/api"
+import { usersAPI } from "../api/usersAPI"
 import { UserType } from "../types/types"
 import { updateObjectInArray } from "../utils/objectHelpers"
 import { ThunkAction } from "redux-thunk"

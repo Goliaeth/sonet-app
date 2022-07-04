@@ -1,5 +1,7 @@
 import { ThunkAction } from "redux-thunk"
-import { authAPI, ResultCodeForCaptcha, ResultCodesEnum, securityAPI } from "../api/api"
+import { ResultCodeForCaptcha, ResultCodesEnum } from "../api/api"
+import { securityAPI } from "../api/securityAPI"
+import { authAPI } from "../api/authAPI"
 import { AppStateType } from "./reduxStore"
 
 const SET_USER_DATA = "sonet-app/auth/SET_USER_DATA"

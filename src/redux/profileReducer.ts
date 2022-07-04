@@ -1,5 +1,5 @@
 import { ThunkAction } from "redux-thunk"
-import { profileAPI } from "../api/api"
+import { profileAPI } from "../api/profileAPI"
 import { PostType, PohotosType, ProfileType } from "../types/types"
 import { AppStateType } from "./reduxStore"
 
@@ -66,7 +66,7 @@ const profileReducer = (state = initialState, action: ActionsTypes): InitialStat
 
     case SAVE_PHOTO_SUCCESS:{
       // ! Из-за возможного null получается чо нельзя null.photos = action.photos
-      // ! Выяснить что делать
+      // ! Выяснить что делать в таких случаях
       if (state.profile) {
         return {
         ...state,
