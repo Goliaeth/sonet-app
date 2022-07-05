@@ -3,13 +3,11 @@ import { UserType } from "../types/types"
 
 export const axiosInstance = axios.create({
   withCredentials: true,
-  baseURL: "https://social-network.samuraijs.com/api/1.0/",
+  baseURL: process.env.REACT_APP_BASE_API_URL,
   headers: {
-    "API-KEY": "09e7b064-65c1-4104-9be1-9105f1fc7916",
-    // "API-KEY": "09e7b064-65c1-4104-9be1-9105f1fc7915", // fake-code for error
+    "API-KEY": process.env.REACT_APP_API_KEY || "",
   },
 })
-
 
 export enum ResultCodesEnum {
   Success = 0,
@@ -20,7 +18,7 @@ export enum ResultCodeForCaptcha {
 }
 export type GetItemsType = {
   items: Array<UserType>
-  totalUsersCount: number
+  totalCount: number
   error: string | null
 }
 export type ResponseType<D = Record<string, unknown>, RC = ResultCodesEnum> = {
