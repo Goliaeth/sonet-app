@@ -1,5 +1,5 @@
 import { ThunkAction } from "redux-thunk"
-import { ResultCodeForCaptcha, ResultCodesEnum } from "../api/api"
+import { ResultCodeForCaptchaEnum, ResultCodesEnum } from "../api/api"
 import { securityAPI } from "../api/securityAPI"
 import { authAPI } from "../api/authAPI"
 import { AppStateType } from "./reduxStore"
@@ -83,7 +83,7 @@ export const login =
       dispatch(getUserData())
       dispatch(getCaptchaUrlSuccess(null))
     } else {
-      if (loginData.resultCode === ResultCodeForCaptcha.CaptchaIsRequired) {
+      if (loginData.resultCode === ResultCodeForCaptchaEnum.CaptchaIsRequired) {
         dispatch(getCaptchaUrl())
       }
       return loginData.messages[0]
@@ -107,9 +107,8 @@ export const getCaptchaUrlSuccess = (captchaUrl: string | null): GetCaptchaUrlSu
   captchaUrl,
 })
 export const getCaptchaUrl = (): ThunkType => async (dispatch) => {
-  const response = await securityAPI.getCaptchaUrl()
-  const captchaUrl = response.data.url
-  dispatch(getCaptchaUrlSuccess(captchaUrl))
+  const captcha = await securityAPI.getCaptchaUrl()
+  dispatch(getCaptchaUrlSuccess(captcha.url))
 }
 
 export default authReducer

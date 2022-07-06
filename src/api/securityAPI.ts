@@ -1,7 +1,12 @@
 import { axiosInstance } from "./api"
 
+type CaptchaUrlType = {
+  url: string
+}
+
 export const securityAPI = {
-  getCaptchaUrl() {
-    return axiosInstance.get(`security/get-captcha-url`)
+  async getCaptchaUrl() {
+    const response = await axiosInstance.get<CaptchaUrlType>(`security/get-captcha-url`)
+    return response.data
   },
 }

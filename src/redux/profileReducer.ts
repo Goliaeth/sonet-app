@@ -1,4 +1,5 @@
 import { ThunkAction } from "redux-thunk"
+import { ResultCodesEnum } from "../api/api"
 import { profileAPI } from "../api/profileAPI"
 import { PostType, PohotosType, ProfileType } from "../types/types"
 import { AppStateType } from "./reduxStore"
@@ -112,9 +113,9 @@ type ThunkType = ThunkAction<void, AppStateType, unknown, ActionsTypes>
 
 export const setUserProfile = (profile: ProfileType): SetUserProfileActionType => ({ type: SET_USER_PROFILE, profile })
 export const getUserProfile = (userId: number | null): ThunkType => async (dispatch) => {
-  const data = await profileAPI.getProfile(userId)
+  const profileData = await profileAPI.getProfile(userId)
 
-  dispatch(setUserProfile(data))
+  dispatch(setUserProfile(profileData))
 }
 type SetUserStatusActionType = {
   type: typeof SET_USER_STATUS
@@ -122,15 +123,15 @@ type SetUserStatusActionType = {
 }
 export const setUserStatus = (status: string): SetUserStatusActionType => ({ type: SET_USER_STATUS, status })
 export const getUserStatus = (userId: number): ThunkType => async (dispatch) => {
-  const response = await profileAPI.getStatus(userId)
+  const statusData = await profileAPI.getStatus(userId)
 
-  dispatch(setUserStatus(response.data))
+  dispatch(setUserStatus(statusData))
 }
 export const updateUserStatus = (status: string): ThunkType => async (dispatch) => {
   try {
-    const response = await profileAPI.updateStatus(status)
+    const updateStatusData = await profileAPI.updateStatus(status)
 
-    if (response.data.resultCode === 0) {
+    if (updateStatusData.resultCode === ResultCodesEnum.Success) {
       dispatch(setUserStatus(status))
     }
   } catch (error) {
@@ -147,18 +148,19 @@ export const savePhotoSuccess = (photos: PohotosType): SavePhotoSuccessActionTyp
   photos,
 })
 export const savePhoto = (photo: PohotosType): ThunkType => async (dispatch) => {
-  const response = await profileAPI.savePhoto(photo)
-  if (response.data.resultCode === 0) {
-    dispatch(savePhotoSuccess(response.data.data.photos))
+  const photosData = await profileAPI.savePhoto(photo)
+  
+  if (photosData.resultCode === ResultCodesEnum.Success) {
+    dispatch(savePhotoSuccess(photosData.data.photos))
   }
 }
 export const saveProfile = (profileData: ProfileType): ThunkType => async (dispatch, getState) => {
   const userId = getState().auth.userId
-  const response = await profileAPI.updateProfile(profileData)
-  if (response.data.resultCode === 0) {
+  const updateProfileData = await profileAPI.updateProfile(profileData)
+  if (updateProfileData.resultCode === ResultCodesEnum.Success) {
     dispatch(getUserProfile(userId))
-  } else if (response.data.resultCode === 1) {
-    return response.data.messages[0]
+  } else if (updateProfileData.resultCode === ResultCodesEnum.Error) {
+    return updateProfileData.messages[0]
   }
 }
 

@@ -1,8 +1,8 @@
 import {
   axiosInstance,
   ResultCodesEnum,
-  ResultCodeForCaptcha,
-  ResponseType,
+  ResultCodeForCaptchaEnum,
+  APIResponseType,
 } from "./api"
 
 type MeResponseDataType = {
@@ -16,7 +16,7 @@ type LoginResponseDataType = {
 
 export const authAPI = {
   async me() {
-    const response = await axiosInstance.get<ResponseType<MeResponseDataType>>(
+    const response = await axiosInstance.get<APIResponseType<MeResponseDataType>>(
       `auth/me`
     )
     return response.data
@@ -28,9 +28,9 @@ export const authAPI = {
     captcha: string | null = null
   ) {
     const response = await axiosInstance.post<
-      ResponseType<
+      APIResponseType<
         LoginResponseDataType,
-        ResultCodesEnum | ResultCodeForCaptcha
+        ResultCodesEnum | ResultCodeForCaptchaEnum
       >
     >(`auth/login`, {
       email,
@@ -41,7 +41,7 @@ export const authAPI = {
     return response.data
   },
   async logout() {
-    const response = await axiosInstance.delete<ResponseType>(`auth/login`)
+    const response = await axiosInstance.delete<APIResponseType>(`auth/login`)
     return response.data
   },
 }

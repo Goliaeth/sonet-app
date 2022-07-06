@@ -1,5 +1,4 @@
-import { axiosInstance, GetItemsType } from "./api"
-
+import { axiosInstance, GetItemsType, APIResponseType } from "./api"
 
 
 export const usersAPI = {
@@ -10,11 +9,11 @@ export const usersAPI = {
     return response.data
   },
   async followUser(userId: number) {
-    const response = await axiosInstance.post(`follow/${userId}`)
+    const response = await axiosInstance.post<APIResponseType>(`follow/${userId}`)
     return response.data
   },
   async unfollowUser(userId: number) {
-    const response = await axiosInstance.delete(`follow/${userId}`)
+    const response = await axiosInstance.delete<APIResponseType>(`follow/${userId}`)
     return response.data
   },
 }
