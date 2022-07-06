@@ -1,4 +1,5 @@
-const SEND_MESSAGE = "sonet-app/dialogs/SEND_MESSAGE"
+import { InferActionsType } from "./store"
+
 
 export type DialogType = {
   id: number
@@ -50,11 +51,12 @@ const initialState = {
     },
   ] as Array<MessageType>,
 }
-export type InitialStateType = typeof initialState
+type InitialStateType = typeof initialState
+type ActionsTypes = InferActionsType<typeof actions>
 
 const dialogsReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
   switch (action.type) {
-    case SEND_MESSAGE: {
+    case "sonet-app/dialogs/SEND_MESSAGE": {
       const newMessage = {
         id: 4,
         text: action.text,
@@ -70,12 +72,8 @@ const dialogsReducer = (state = initialState, action: ActionsTypes): InitialStat
   }
 }
 
-type ActionsTypes = SendMessageActionType
-
-type SendMessageActionType = {
-  type: typeof SEND_MESSAGE
-  text: string
+export const actions = {
+  sendMessageActionCreator: (text: string) => ({ type: 'sonet-app/dialogs/SEND_MESSAGE', text } as const),
 }
-export const sendMessageActionCreator = (text: string): SendMessageActionType => ({ type: SEND_MESSAGE, text })
 
 export default dialogsReducer

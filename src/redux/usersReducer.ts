@@ -1,8 +1,7 @@
 import { usersAPI } from "../api/usersAPI"
 import { UserType } from "../types/types"
 import { updateObjectInArray } from "../utils/objectHelpers"
-import { ThunkAction } from "redux-thunk"
-import { AppStateType, InferActionsType } from "./reduxStore"
+import { BaseThunkType, InferActionsType } from "./store"
 import { Dispatch } from "redux"
 
 const initialState = {
@@ -15,13 +14,14 @@ const initialState = {
 }
 
 type InitialStateType = typeof initialState
+type ActionsTypes = InferActionsType<typeof actions>
 
 const usersReducer = (
   state = initialState,
   action: ActionsTypes
 ): InitialStateType => {
   switch (action.type) {
-    case 'FOLLOW':
+    case 'sonet-app/users/FOLLOW':
       return {
         ...state,
         users: updateObjectInArray(state.users, action.userId, "id", {
@@ -29,7 +29,7 @@ const usersReducer = (
         }),
       }
 
-    case 'UNFOLLOW':
+    case 'sonet-app/users/UNFOLLOW':
       return {
         ...state,
         users: updateObjectInArray(state.users, action.userId, "id", {
@@ -37,31 +37,31 @@ const usersReducer = (
         }),
       }
 
-    case 'SET_USERS':
+    case 'sonet-app/users/SET_USERS':
       return {
         ...state,
         users: action.users,
       }
 
-    case 'SET_CURRENT_PAGE':
+    case 'sonet-app/users/SET_CURRENT_PAGE':
       return {
         ...state,
         currentPage: action.currentPage,
       }
 
-    case 'SET_TOTAL_USERS_COUNT':
+    case 'sonet-app/users/SET_TOTAL_USERS_COUNT':
       return {
         ...state,
         totalUsersCount: action.totalCount,
       }
 
-    case 'SET_IS_FETCHING':
+    case 'sonet-app/users/SET_IS_FETCHING':
       return {
         ...state,
         isFetching: action.isFetching,
       }
 
-    case 'SET_IS_FOLLOWING_IN_PROGRESS':
+    case 'sonet-app/users/SET_IS_FOLLOWING_IN_PROGRESS':
       return {
         ...state,
         isFollowingInProgress: action.isFollowingInProgress
@@ -74,42 +74,40 @@ const usersReducer = (
   }
 }
 
-type ActionsTypes = InferActionsType<typeof actions>
-
 export const actions = {
   setUsers: (users: Array<UserType>) =>
     ({
-      type: 'SET_USERS',
+      type: 'sonet-app/users/SET_USERS',
       users,
     } as const),
   tagFollow: (userId: number) =>
     ({
-      type: 'FOLLOW',
+      type: 'sonet-app/users/FOLLOW',
       userId,
     } as const),
   tagUnfollow: (userId: number) =>
     ({
-      type: 'UNFOLLOW',
+      type: 'sonet-app/users/UNFOLLOW',
       userId,
     } as const),
   setCurrentPage: (currentPage: number) =>
     ({
-      type: 'SET_CURRENT_PAGE',
+      type: 'sonet-app/users/SET_CURRENT_PAGE',
       currentPage,
     } as const),
   setTotalUsersCount: (totalCount: number) =>
     ({
-      type: 'SET_TOTAL_USERS_COUNT',
+      type: 'sonet-app/users/SET_TOTAL_USERS_COUNT',
       totalCount,
     } as const),
   setIsFetching: (isFetching: boolean) =>
     ({
-      type: 'SET_IS_FETCHING',
+      type: 'sonet-app/users/SET_IS_FETCHING',
       isFetching,
     } as const),
   setIsFollowingInProgress: (isFollowingInProgress: boolean, userId: number) =>
     ({
-      type: 'SET_IS_FOLLOWING_IN_PROGRESS',
+      type: 'sonet-app/users/SET_IS_FOLLOWING_IN_PROGRESS',
       isFollowingInProgress,
       userId,
     } as const),
@@ -117,10 +115,8 @@ export const actions = {
 
 //thunks
 
-type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
-
 export const requestUsers =
-  (page: number, pageSize: number): ThunkType =>
+  (page: number, pageSize: number): BaseThunkType<ActionsTypes> =>
   async (dispatch) => {
     dispatch(actions.setIsFetching(true))
     const data = await usersAPI.getUsers(page, pageSize)
@@ -143,7 +139,7 @@ const _followUnfollowFlow = async (
   dispatch(actions.setIsFollowingInProgress(false, userId))
 }
 export const follow =
-  (userId: number): ThunkType =>
+  (userId: number): BaseThunkType<ActionsTypes> =>
   async (dispatch) => {
     _followUnfollowFlow(
       dispatch,
@@ -153,7 +149,7 @@ export const follow =
     )
   }
 export const unfollow =
-  (userId: number): ThunkType =>
+  (userId: number): BaseThunkType<ActionsTypes> =>
   async (dispatch) => {
     _followUnfollowFlow(
       dispatch,

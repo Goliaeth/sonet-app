@@ -1,6 +1,5 @@
 import profileReducer, {
-  addPostActionCreator,
-  deletePostActionCreator,
+  actions,
 } from "./profileReducer"
 const state = {
   posts: [
@@ -20,11 +19,13 @@ const state = {
       likesCount: 7,
     },
   ],
+  profile: null,
+  status: ''
 }
 
 it("after adding length of posts should be incremented", () => {
   // 1. prepare start test data
-  const action = addPostActionCreator("test")
+  const action = actions.addPostActionCreator("test")
   // 2. do some action
   const newState = profileReducer(state, action)
   // 3. expectation
@@ -33,7 +34,7 @@ it("after adding length of posts should be incremented", () => {
 
 it("text of new post should be 'test'", () => {
   // 1. prepare start test data
-  const action = addPostActionCreator("test")
+  const action = actions.addPostActionCreator("test")
   // 2. do some action
   const newState = profileReducer(state, action)
   // 3. expectation
@@ -42,16 +43,16 @@ it("text of new post should be 'test'", () => {
 
 it("after deleting length of posts should be decremented", () => {
   // 1. prepare start test data
-  const action = deletePostActionCreator(1)
+  const action = actions.deletePostActionCreator(1)
   // 2. do some action
   const newState = profileReducer(state, action)
   // 3. expectation
-  expect(newState.posts.length).toBe(3)
+  expect(newState.posts.length).toBe(2)
 })
 
 it("after deleting length of posts shouldn't be decremented if id is incorrect", () => {
   // 1. prepare start test data
-  const action = deletePostActionCreator(1000)
+  const action = actions.deletePostActionCreator(1000)
   // 2. do some action
   const newState = profileReducer(state, action)
   // 3. expectation

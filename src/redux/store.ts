@@ -1,10 +1,10 @@
-import { applyMiddleware, combineReducers, createStore, compose } from "redux"
+import { applyMiddleware, combineReducers, createStore, compose, Action } from "redux"
 import authReducer from "./authReducer"
 import dialogsReducer from "./dialogsReducer"
 import profileReducer from "./profileReducer"
 import sidebarReducer from "./sidebarReducer"
 import usersReducer from "./usersReducer"
-import thunkMiddleware from "redux-thunk"
+import thunkMiddleware, { ThunkAction } from "redux-thunk"
 import appReducer from "./appReducer"
 
 const rootReducer = combineReducers({
@@ -21,6 +21,8 @@ export type AppStateType = ReturnType<RootReducerType>
 
 type PropertiesTypes<T> = T extends { [key: string]: infer U } ? U : never
 export type InferActionsType<T extends { [key: string]: (...args: any[]) => any }> = ReturnType<PropertiesTypes<T>>
+
+export type BaseThunkType<A extends Action, R = Promise<void>> = ThunkAction<R, AppStateType, unknown, A>
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore

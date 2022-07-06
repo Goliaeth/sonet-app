@@ -11,7 +11,7 @@ import {
 import withAuthRedirect from "../hoc/withAuthRedirect"
 import { compose } from "redux"
 import withRouter from "../hoc/withRouter"
-import { AppStateType } from "../../redux/reduxStore"
+import { AppStateType } from "../../redux/store"
 import { PohotosType, ProfileType } from "../../types/types"
 
 type MapStatePropsType = {
@@ -23,7 +23,7 @@ type MapDispatchPropsType = {
   getUserProfile: (userId: number) => void
   getUserStatus: (userId: number) => void
   updateUserStatus: (status: string) => void
-  savePhoto: (photo: PohotosType) => void
+  savePhoto: (photo: File) => void
   saveProfile: (profileData: ProfileType) => Promise<any>
 }
 type OwnPropsType = {

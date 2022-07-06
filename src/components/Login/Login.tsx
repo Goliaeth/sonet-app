@@ -6,7 +6,7 @@ import { login } from "../../redux/authReducer"
 import { Navigate } from "react-router-dom"
 import { FORM_ERROR } from "final-form"
 import { createField, Input } from "../common/FormControls/FormControls"
-import { AppStateType } from "../../redux/reduxStore"
+import { AppStateType } from "../../redux/store"
 
 type LoginFormPropsType = {
   login: (email: string, password: string, rememberMe: boolean, captcha: string) => Promise<any>

@@ -20,7 +20,7 @@ export const profileAPI = {
     })
     return response.data
   },
-  async savePhoto(photo: any) {
+  async savePhoto(photo: File) {
     const formData = new FormData()
     formData.append("image", photo)
     const response = await axiosInstance.put<APIResponseType<SavePhotoResponseType>>(
